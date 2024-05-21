@@ -16,8 +16,6 @@ void handleRoot() {
 
 void setup(void){
   Serial.begin(115200);
-  Serial.println();
-  Serial.println("Booting Sketch...");
 
   WiFi.mode(WIFI_AP); 
   WiFi.softAP(ssid, password);    
