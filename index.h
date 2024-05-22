@@ -1,4 +1,6 @@
-const char main_html[] PROGMEM = R"=====(
+extern int rad;
+
+char main_html[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@ const char main_html[] PROGMEM = R"=====(
     </style>
 </head>
 <body>
-    <p><h1>prova</h1></p>
+    <p><h1>)=====" + std::to_string(rad) + R"=====(</h1></p>
     
 </body>
 </html>

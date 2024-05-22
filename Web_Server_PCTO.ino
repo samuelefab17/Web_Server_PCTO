@@ -1,34 +1,36 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
+#include "index.h"
 
-#include "index.h" 
+int rad;
 
 WebServer server(80);
 
-const char* ssid = "FORZAFERRARISEMPREE";
-const char* password = "vesrtappenamuroesigode";
-
 void handleRoot() {
- String html = main_html; 
- server.send(200, "text/html", html); 
+  rad = random(9999);
+  String html = main_html;
+  server.send(500, "text/html", html);
 }
 
-void setup(void){
+void setup(void) {
   Serial.begin(115200);
 
-  WiFi.mode(WIFI_AP); 
-  WiFi.softAP(ssid, password);    
+  const char* ssid = "FORZAFERRARISEMPREE";
+  const char* password = "vesrtappenamuroesigode";
 
-  Serial.println(WiFi.localIP());  
- 
-  server.on("/", handleRoot);     
- 
-  server.begin();                 
+ WiFi.mode(WIFI_AP); 
+  WiFi.softAP(ssid, password); 
+  IPAddress ip = WiFi.softAPIP();
+  Serial.print("IP address: ");
+  Serial.println(ip);
+
+  server.on("/", handleRoot);
+  server.begin();
   Serial.println("HTTP server started");
 }
 
-void loop(void){
+void loop(void) {
   server.handleClient();
-  delay(1);
+  delay(1000);
 }
