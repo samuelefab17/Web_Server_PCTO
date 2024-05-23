@@ -1,36 +1,45 @@
 #include <WiFi.h>
-#include <WiFiClient.h>
-#include <WebServer.h>
-#include "index.h"
+#include <ESPAsyncWebServer.h>
+#include "index.h" 
 
-int rad;
+const char* ssid = "FORZAFERRARISEMPREE";
+const char* password = "vesrtappenamuroesigode";
 
-WebServer server(80);
+int test;
 
-void handleRoot() {
-  rad = random(9999);
-  String html = main_html;
-  server.send(500, "text/html", html);
+AsyncWebServer server(80);
+
+void setup() {
+   Serial.begin(115200);
+
+   WiFi.mode(WIFI_AP); 
+   WiFi.softAP(ssid, password);    
+
+   Serial.println(WiFi.softAPIP());  
+
+   // Serve the HTML page from the file
+   server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
+
+     request->send(200, "text/html", webpage);
+
+  });
+
+  // Define a route to get the temperature data
+  server.on("/Rad", HTTP_GET, [](AsyncWebServerRequest* request) {
+
+     float Rad = test;
+     String RadStr = String(Rad);
+     request->send(1000, "text/plain", RadStr);
+
+  });
+
+   server.begin();
+
 }
 
-void setup(void) {
-  Serial.begin(115200);
+void loop() {
 
-  const char* ssid = "FORZAFERRARISEMPREE";
-  const char* password = "vesrtappenamuroesigode";
+   test = random(999);;
+   delay(1000);
 
- WiFi.mode(WIFI_AP); 
-  WiFi.softAP(ssid, password); 
-  IPAddress ip = WiFi.softAPIP();
-  Serial.print("IP address: ");
-  Serial.println(ip);
-
-  server.on("/", handleRoot);
-  server.begin();
-  Serial.println("HTTP server started");
-}
-
-void loop(void) {
-  server.handleClient();
-  delay(1000);
 }

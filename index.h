@@ -1,19 +1,29 @@
-extern int rad;
+#ifndef WEBPAGE_H
+#define WEBPAGE_H
 
-char main_html[] PROGMEM = R"=====(
+const char* webpage = R"=====(
 <!DOCTYPE html>
 <html>
 <head>
-    <title>prova</title>
-    <style>
-        body {
-            background-color: #fcfcc9; 
-        }
-    </style>
+    <title>ESP32 Temperature</title>
 </head>
 <body>
-    <p><h1>)=====" + std::to_string(rad) + R"=====(</h1></p>
-    
+    <h1>ESP32 Temperature</h1>
+    <p>Rad: <span style="color: yellow;"><span id="Rad"></span></p>
+    <script>
+        function fetchRad() {
+            fetch("/Rad")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("Rad").textContent = data;
+                });
+        }
+
+        fetchRad();
+        setInterval(fetchRad, 1000); // Update temperature every 4 seconds
+    </script>
 </body>
 </html>
 )=====";
+
+#endif
