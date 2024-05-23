@@ -8,7 +8,7 @@ const char* webpage = R"=====(
     <title>ESP32 TEST</title>
 </head>
 <body>
-    <h1>ESP32 Temperature</h1>
+    <h1>ESP32 Test</h1>
     <p>Rad: <span style="color: red;"><span id="Rad"></span></p>
     <script>
         function fetchRad() {
