@@ -5,11 +5,11 @@ const char* webpage = R"=====(
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ESP32 Temperature</title>
+    <title>ESP32 TEST</title>
 </head>
 <body>
     <h1>ESP32 Temperature</h1>
-    <p>Rad: <span style="color: yellow;"><span id="Rad"></span></p>
+    <p>Rad: <span style="color: red;"><span id="Rad"></span></p>
     <script>
         function fetchRad() {
             fetch("/Rad")
