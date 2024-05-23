@@ -6,6 +6,26 @@ const char* webpage = R"=====(
 <html>
 <head>
     <title>ESP32 TEST</title>
+    <style>
+        body {
+            background-color: #fcfcc9; 
+        }
+	.container {
+			width: 1200px;
+			height: 600px;
+			display: flex;
+			align-items: flex-end;
+			background-color: #f0f0f0;
+		}
+
+		.barra {
+			margin: 5px;
+			width: 100px;
+			height: calc(100% - 20px);
+			background-color: #6e9fc3;
+		}
+    </style>
+
 </head>
 <body>
     <h1>ESP32 Test</h1>
@@ -24,29 +44,19 @@ const char* webpage = R"=====(
 </script>
 <p></p>
 <p></p>
-<canvas id="myCanvas" width="800" height="800"></canvas>
-<script>
-var canvas = document.getElementById("myCanvas"); // Seleziona l'elemento canvas
-		var ctx = canvas.getContext("2d"); // Seleziona il contesto 2D
-
-		var dati = [12, 19, 3, 5, 2, 3, 7]; // Dati per il grafico
-		var labels = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio"]; // Etichette sull'asse x
-
-		// Disegna il grafico
-		ctx.beginPath();
-		ctx.moveTo(0, 0);
-		for (var i = 0; i < dati.length; i++) {
-			var x = i * 60;
-			var y = 600 - dati[i] * 10;
-			ctx.lineTo(x, y);
-			ctx.fillText(labels[i], x, 600);
-			ctx.arc(x, y, 5, 0, Math.PI*2);
-			ctx.fill();
-		}
-		ctx.stroke();
-    </script>
-    
-
+<div class="container">
+		<div class="barra" style="height: 80%;"></div>
+		<div class="barra" style="height: 60%;"></div>
+		<div class="barra" style="height: 40%;"></div>
+		<div class="barra" style="height: 70%;"></div>
+		<div class="barra" style="height: 50%;"></div>
+		<div class="barra" style="height: 30%;"></div>
+		<div class="barra" style="height: 90%;"></div>
+		<div class="barra" style="height: 10%;"></div>
+		<div class="barra" style="height: 35%;"></div>
+		<div class="barra" style="height: 45%;"></div>
+		<div class="barra" style="height: 86%;"></div>
+	</div>
 </body>
 </html>
 )=====";
