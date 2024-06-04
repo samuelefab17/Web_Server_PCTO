@@ -2,44 +2,44 @@
 #include <ESPAsyncWebServer.h>
 #include "index.h" 
 
-const char* ssid = "FORZAFERRARISEMPREE";
-const char* password = "vesrtappenamuroesigode";
-
-int test;
+const char* ssid = "FORZAFERRARI";
+const char* password = "noverstappen";
 
 AsyncWebServer server(80);
 
-void setup() {
-   Serial.begin(115200);
+int test;
 
-   WiFi.mode(WIFI_AP); 
-   WiFi.softAP(ssid, password);    
+void setup() 
+{
+  Serial.begin(115200);
 
-   Serial.println(WiFi.softAPIP());  
+  WiFi.mode(WIFI_AP); 
+  WiFi.softAP(ssid, password);    
 
-   // Serve the HTML page from the file
-   server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
+  Serial.println(WiFi.softAPIP());  
 
-     request->send(200, "text/html", webpage);
-
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) 
+  {
+    request->send(200, "text/html", webpage);
   });
 
-  // Define a route to get the temperature data
-  server.on("/Rad", HTTP_GET, [](AsyncWebServerRequest* request) {
-
-     float Rad = test;
-     String RadStr = String(Rad);
-     request->send(1000, "text/plain", RadStr);
-
+  server.on("/Rad", HTTP_GET, [](AsyncWebServerRequest* request) 
+  {
+    float Rad = test;
+    String RadStr = String(Rad);
+    request->send(1000, "text/plain", RadStr);
   });
-
-   server.begin();
-
+  server.begin();
 }
 
-void loop() {
-
-   test = random(999);;
-   delay(1000);
-
+void loop() 
+{
+  test = random(999);
+  char stringa[20];
+  while (Serial.available() == false) 
+  {
+    Serial.readBytes(stringa, 20);
+    Serial.println(stringa);
+  }
+  delay(1000);
 }
