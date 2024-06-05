@@ -31,6 +31,7 @@ const char* webpage = R"=====(
   <body>
     <h1>ESP32 Test</h1>
     <p>Rad: <span style="color: Rad;"><span id="Rad"></span></p>
+    <p>Rad: <span style="color: Rad1;"><span id="Rad1"></span></p>
     <script>
     function fetchRad() 
     {
@@ -42,7 +43,7 @@ const char* webpage = R"=====(
       });
     }
     fetchRad();
-    setInterval(fetchRad, 1000); // Update temperature every 4 seconds
+    setInterval(fetchRad, 1000);
     </script>
     <p></p>
     <p></p>
