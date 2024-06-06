@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include "index.h" 
+#include <string.h>
 
 #if ARDUINO_USB_CDC_ON_BOOT
 #define UART0 Serial0
@@ -12,6 +13,11 @@ String uart_buffer = "";
 const uint32_t communicationTimeout_ms = 500;
 SemaphoreHandle_t uart_buffer_Mutex = NULL;
 uint32_t counter = 0;
+char *spazio = " ";
+char *acce_char;
+char *magn_char;
+String acces;
+String magns;
 
 const char* ssid = "FORZAFERRARI";
 const char* password = "noverstappen";
@@ -53,12 +59,14 @@ void setup()
     request->send(200, "text/html", webpage);
   });
 
-  server.on("/Rad", HTTP_GET, [](AsyncWebServerRequest* request) 
+  server.on("/acces", HTTP_GET, [](AsyncWebServerRequest* request) 
   { 
-    int Rad = random(999);;
-    String RadStr = String(Rad);
-    Serial.println(RadStr);
-    request->send(1000, "text/plain", uart_buffer);
+    request->send(1000, "text/plain", acces);
+  });
+
+  server.on("/magns", HTTP_GET, [](AsyncWebServerRequest* request) 
+  { 
+    request->send(1000, "text/plain", magns);
   });
 
   server.begin();
@@ -71,9 +79,14 @@ void loop()
     if (xSemaphoreTake(uart_buffer_Mutex, portMAX_DELAY)) 
     {
       UART0.print(uart_buffer);
-      uart_buffer = ""; 
+      char myString[16];
+      uart_buffer.toCharArray(myString, 16);
+      acce_char = strtok(myString, spazio);
+      magn_char = strtok(NULL, spazio);
+      acces = String(acce_char);
+      magns = String(magn_char);
       xSemaphoreGive(uart_buffer_Mutex);
-      delay(1000);
+      uart_buffer = "";
     }
   }  
 }
