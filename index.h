@@ -11,6 +11,12 @@ const char* webpage = R"=====(
         {
           background-color: #Ffffff; 
         }
+        h1 
+        {
+        color: red;
+        font-size: 60px;
+        text-align: center;
+        }
     </style>
   </head>
   <body>
